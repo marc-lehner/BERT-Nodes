@@ -1,6 +1,6 @@
 [workspace]
 authors = ["AbderrahimAl <abderrahimalakouche@gmail.com>"]
-channels = ["knime/label/nightly", "knime", "conda-forge", "abderrahimal", "Esri", "deepmodeling"]
+channels = ["knime", "conda-forge", "abderrahimal", "Esri", "deepmodeling"]
 name = "py39_bert_cpu"
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 version = "0.1.0"
@@ -20,18 +20,29 @@ termcolor = "2.0.1.*"
 setuptools = "<70"
 bert-for-tf2 = "0.14.9.*"
 transformers = "4.6.1.*"
-tensorflow-hub = "0.12.0.*"
-tensorflow = "2.8.1"
 pip = "*"
 
-[target.linux-64.build-dependencies]
-tensorflow-cpu = "2.8.1"
+[target.linux-64.dependencies]
+tensorflow = "==2.8.1"
+tensorflow-hub = "==0.12.0"
 
+# macOS: CPU builds on conda-forge
+[target.osx-64.dependencies]
+tensorflow = "==2.8.1"
+tensorflow-hub = "==0.12.0"
+[target.osx-arm64.dependencies]
+tensorflow = "==2.8.1"
+tensorflow-hub = "==0.12.0"
+
+# Windows: pull prebuilt wheel from PyPI (no source builds)
+[target.win-64.pypi-dependencies]
+tensorflow = "==2.8.1"
+tensorflow-hub = "==0.12.0"
 
 
 [feature.build.dependencies]
 python = "3.9.*"
-knime-extension-bundling = "5.7.*"
+knime-extension-bundling = "5.*"
 
 [feature.debug.dependencies]
 debugpy = "*"
